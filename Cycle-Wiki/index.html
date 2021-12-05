@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cycle-Wiki | Retr0 's blog</title><meta name="keywords" content="Welcome"><meta name="author" content="Retr0mous"><meta name="copyright" content="Retr0mous"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Cyclic ‘s Kernel  —— A iot Bike sytem based on RaspberryPi, Ardiuino, etc   0x1 What is This?Cyclic ‘s Kernel is an independent System With self-producing energy iot Web control, The system ‘s Energy">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cycle-Wiki">
+<meta property="og:url" content="https://ret2w1cky.com/Cycle-Wiki/index.html">
+<meta property="og:site_name" content="Retr0 &#39;s blog">
+<meta property="og:description" content="Cyclic ‘s Kernel  —— A iot Bike sytem based on RaspberryPi, Ardiuino, etc   0x1 What is This?Cyclic ‘s Kernel is an independent System With self-producing energy iot Web control, The system ‘s Energy">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2021-12-05T13:08:12.000Z">
+<meta property="article:modified_time" content="2021-12-05T13:08:19.624Z">
+<meta property="article:author" content="Retr0mous">
+<meta property="article:tag" content="Welcome">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/DDizzzy79/cdn/postsyUZaVkEDHLietzh.png"><link rel="canonical" href="https://ret2w1cky.com/Cycle-Wiki/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?eea21feebc3feb19c3c7a1f6ec19c0db";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Cycle-Wiki',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-12-05 21:08:19'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-clock/lib/clock.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.min.css" media="defer" onload="this.media='all'"><script async src="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/carousel-touch.min.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/DDizzzy79/cdn/posts0c5201b6e89c8bbdd96b3f6033afa50a_q.jpg-1170x741" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/update/"><i class="fa-fw fas fa-angle-double-up"></i><span> Updates</span></a></div><div class="menus_item"><a class="site-page" href="/AC/"><i class="fa-fw fas fa-fan"></i><span> Aircondit</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Retr0 's blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/update/"><i class="fa-fw fas fa-angle-double-up"></i><span> Updates</span></a></div><div class="menus_item"><a class="site-page" href="/AC/"><i class="fa-fw fas fa-fan"></i><span> Aircondit</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="page-site-info"><h1 id="site-title">Cycle-Wiki</h1></div></header><main class="layout" id="content-inner"><div id="page"><div id="article-container"><h1 id="Cyclic-‘s-Kernel"><a href="#Cyclic-‘s-Kernel" class="headerlink" title="Cyclic ‘s Kernel "></a>Cyclic ‘s Kernel <img src="https://img.shields.io/badge/SupportedBy-Ret1w1cky-blueviolet" alt=""></h1><p><img src="https://user-images.githubusercontent.com/72267897/144699458-1e46ac3e-5501-4b31-be10-397a87a41ed0.png" alt="Untitled"></p>
+<p>—— <strong>A iot Bike sytem based on RaspberryPi, Ardiuino, etc</strong>  </p>
+<h2 id="0x1-What-is-This"><a href="#0x1-What-is-This" class="headerlink" title="0x1 What is This?"></a>0x1 What is This?</h2><p>Cyclic ‘s Kernel is an independent System With self-producing energy iot Web control, The system ‘s Energy Source is a 12V6W Generater. And The Voltage, Current is not cocerned, Now, I will introduce those stuff to You<br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/DDizzzy79/ScienceFair/files/7633868/default.pdf">Plan.pdf</a><br>Also, for a extra info, Lots of our code is based on lots of thoughts on internet</p>
+<h2 id="0x2-Basic-plans"><a href="#0x2-Basic-plans" class="headerlink" title="0x2 Basic plans"></a>0x2 Basic plans</h2><p>Our plan inclues that:  </p>
+<ul>
+<li>Generater</li>
+<li>Clock(Shows Velocity&amp;Time)</li>
+<li>Controled turning light</li>
+<li>Energy Store Device</li>
+<li>Other IOT Devices<h1 id="Generaters"><a href="#Generaters" class="headerlink" title="Generaters"></a>Generaters</h1>For our Generaters, We selected A <strong>12V6WGenerater</strong> , So Far, The maximum of it is aboat <code>5~6V</code><br>But, We were not exclude That the generater can generate above 6V, So far, The generater ‘s voltage output had exceed our’s minimum request.<br>We chose to install it on the wire of the tire It work pretty well, We can get 5~6v during a normal ride.<h1 id="RaspberryPi"><a href="#RaspberryPi" class="headerlink" title="RaspberryPi"></a>RaspberryPi</h1><img src="https://user-images.githubusercontent.com/72267897/144403737-64037c69-4959-492a-bb5d-5c7ec4068d5b.png" alt="image"><br>For ours SBC (single-board Computer) We select Raspberry Pi due to the high-functing &amp; the Raspberry-based environment, I found a RaspberryPi 4B, By using Serial Port debugging, I sucessfuly install Respberry Linux kernel ,After Then, it was a boring time of debugging &amp; installing……. Environment. Anyway We First tried to to a basic IO In/Out Circius by coding a Python script With RPi.GIPO, also be carful when setting the IO port for BMC   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> RPi.GPIO <span class="keyword">as</span> gpio</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">p = <span class="number">11</span></span><br><span class="line">gpio.setmode(BMC)</span><br><span class="line">gpio.setup(p,gpio.OUT)</span><br><span class="line"></span><br><span class="line">While <span class="literal">True</span>:</span><br><span class="line">  gpio.output(p,gpio.HIGH)</span><br><span class="line">  time.sleep(<span class="number">1</span>)</span><br><span class="line">  gpio.output(p,gpio.LOW)</span><br><span class="line">  time.sleep(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+This script will First, it will set the pin finding mode to <code>bmc</code>,thenit will set the p (GPIO.11) pin to output mode, After That, Raspberry Pi is going to run the scrpit in the <code>while loop</code> Which is set the <code>p</code> to high, Wait for 1 seconds set the <code>p</code> to low. repeated and repeated.<br>btw, You can The IO pin setting by using <code>gpio readall</code>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> root @ raspberrypi <span class="keyword">in</span> ~ [18:49:46]</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> gpio readall</span></span><br><span class="line"> +-----+-----+---------+------+---+---Pi 4B--+---+------+---------+-----+-----+</span><br><span class="line"> | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |</span><br><span class="line"> +-----+-----+---------+------+---+----++----+---+------+---------+-----+-----+</span><br><span class="line"> |     |     |    3.3v |      |   |  1 || 2  |   |      | 5v      |     |     |</span><br><span class="line"> |   2 |   8 |   SDA.1 | ALT0 | 1 |  3 || 4  |   |      | 5v      |     |     |</span><br><span class="line"> |   3 |   9 |   SCL.1 | ALT0 | 1 |  5 || 6  |   |      | 0v      |     |     |</span><br><span class="line"> |   4 |   7 | GPIO. 7 |   IN | 1 |  7 || 8  | 1 | ALT5 | TxD     | 15  | 14  |</span><br><span class="line"> |     |     |      0v |      |   |  9 || 10 | 1 | ALT5 | RxD     | 16  | 15  |</span><br><span class="line"> |  17 |   0 | GPIO. 0 |   IN | 0 | 11 || 12 | 0 | IN   | GPIO. 1 | 1   | 18  |</span><br><span class="line"> |  27 |   2 | GPIO. 2 |   IN | 0 | 13 || 14 |   |      | 0v      |     |     |</span><br><span class="line"> |  22 |   3 | GPIO. 3 |   IN | 0 | 15 || 16 | 0 | IN   | GPIO. 4 | 4   | 23  |</span><br><span class="line"> |     |     |    3.3v |      |   | 17 || 18 | 0 | IN   | GPIO. 5 | 5   | 24  |</span><br><span class="line"> |  10 |  12 |    MOSI |   IN | 0 | 19 || 20 |   |      | 0v      |     |     |</span><br><span class="line"> |   9 |  13 |    MISO |   IN | 0 | 21 || 22 | 0 | IN   | GPIO. 6 | 6   | 25  |</span><br><span class="line"> |  11 |  14 |    SCLK |   IN | 0 | 23 || 24 | 1 | IN   | CE0     | 10  | 8   |</span><br><span class="line"> |     |     |      0v |      |   | 25 || 26 | 1 | IN   | CE1     | 11  | 7   |</span><br><span class="line"> |   0 |  30 |   SDA.0 |   IN | 1 | 27 || 28 | 1 | IN   | SCL.0   | 31  | 1   |</span><br><span class="line"> |   5 |  21 | GPIO.21 |   IN | 1 | 29 || 30 |   |      | 0v      |     |     |</span><br><span class="line"> |   6 |  22 | GPIO.22 |   IN | 1 | 31 || 32 | 0 | IN   | GPIO.26 | 26  | 12  |</span><br><span class="line"> |  13 |  23 | GPIO.23 |   IN | 0 | 33 || 34 |   |      | 0v      |     |     |</span><br><span class="line"> |  19 |  24 | GPIO.24 |   IN | 0 | 35 || 36 | 0 | IN   | GPIO.27 | 27  | 16  |</span><br><span class="line"> |  26 |  25 | GPIO.25 |   IN | 0 | 37 || 38 | 0 | OUT  | GPIO.28 | 28  | 20  |</span><br><span class="line"> |     |     |      0v |      |   | 39 || 40 | 0 | IN   | GPIO.29 | 29  | 21  |</span><br><span class="line"> +-----+-----+---------+------+---+----++----+---+------+---------+-----+-----+</span><br><span class="line"> | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |</span><br><span class="line"> +-----+-----+---------+------+---+---Pi 4B--+---+------+---------+-----+-----+</span><br></pre></td></tr></table></figure>
+as We can see, The io pins are listed blow, thus, you can check the pins here and change the <code>p config</code> in the python script.<br>And now, The module used in The <code>Cyclic &#39;s Kernel</code> Project will be introduced.</li>
+</ul>
+<h2 id="LCD1602"><a href="#LCD1602" class="headerlink" title="LCD1602"></a>LCD1602</h2><p>   <img src="https://www.makerguides.com/wp-content/uploads/2020/04/lcd.svg" alt="607e5853b75b5d5f74165caa6b1d30cf">   </p>
+<p><strong>lcd1602 module is a python module based on internet resourses</strong><br>First of all, LCD1602 is a LCD Which contain <code>16*2=32</code> Space to type,   </p>
+<blockquote>
+<p><em>Also, I will not expain How Send_data() &amp; Send_command() Works, Because I don’t Know How How does it work</em>  </p>
+</blockquote>
+<p><strong>Installed Functions:</strong></p>
+<h2 id="init-lcd"><a href="#init-lcd" class="headerlink" title="init_lcd()"></a>init_lcd()</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init_lcd</span>():</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        send_command(<span class="number">0x33</span>) <span class="comment"># Must initialize to 8-line mode at first</span></span><br><span class="line">        time.sleep(<span class="number">0.005</span>)</span><br><span class="line">        send_command(<span class="number">0x32</span>) <span class="comment"># Then initialize to 4-line mode</span></span><br><span class="line">        time.sleep(<span class="number">0.005</span>)</span><br><span class="line">        send_command(<span class="number">0x28</span>) <span class="comment"># 2 Lines &amp; 5*7 dots</span></span><br><span class="line">        time.sleep(<span class="number">0.005</span>)</span><br><span class="line">        send_command(<span class="number">0x0C</span>) <span class="comment"># Enable display without cursor</span></span><br><span class="line">        time.sleep(<span class="number">0.005</span>)</span><br><span class="line">        send_command(<span class="number">0x01</span>) <span class="comment"># Clear Screen</span></span><br><span class="line">        BUS.write_byte(LCD_ADDR ,<span class="number">0x08</span>)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p>This function doesn’t required any arguments, it just simply initial the LCD1602</p>
+<h2 id="clear-lcd"><a href="#clear-lcd" class="headerlink" title="clear_lcd()"></a>clear_lcd()</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clear_lcd</span>():</span></span><br><span class="line">    send_command(<span class="number">0x01</span>) <span class="comment"># Clear Screen</span></span><br></pre></td></tr></table></figure>
+<p>This function will clean the LCD1602 ‘s screen by calling <code>send_data()</code> function, basically it is just sendding a message to LCD1602.</p>
+<h2 id="print-lcd"><a href="#print-lcd" class="headerlink" title="print_lcd()"></a>print_lcd()</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_lcd</span>(<span class="params">x, y, <span class="built_in">str</span></span>):</span></span><br><span class="line">    <span class="keyword">if</span> x &lt; <span class="number">0</span>:</span><br><span class="line">        x = <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> x &gt; <span class="number">15</span>:</span><br><span class="line">        x = <span class="number">15</span></span><br><span class="line">    <span class="keyword">if</span> y &lt;<span class="number">0</span>:</span><br><span class="line">        y = <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> y &gt; <span class="number">1</span>:</span><br><span class="line">        y = <span class="number">1</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment"># Move cursor</span></span><br><span class="line">    addr = <span class="number">0x80</span> + <span class="number">0x40</span> * y + x</span><br><span class="line">    send_command(addr)</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">chr</span> <span class="keyword">in</span> <span class="built_in">str</span>:</span><br><span class="line">        send_data(<span class="built_in">ord</span>(<span class="built_in">chr</span>))</span><br></pre></td></tr></table></figure>
+<p>for This function, it requires 3 argruments which is <code>x</code>,<code>y</code>,<code>str</code> Which I will expain first:  </p>
+<ul>
+<li><strong>X</strong>,The x coordinate That the <code>str</code> is “typing” to</li>
+<li><strong>y</strong>,The y coordinate That the <code>str</code> is “typing” to</li>
+<li><strong>Str</strong>,<strong>It is a String That you wanted to type on Screen, IT NEEDS TO BE LESS THAN 16 CHARACTERS</strong></li>
+</ul>
+<p>In The function, Raspberry Pi Will move The cursor To the specific place That you pointed, then it will try to send the character in the string by sending asciis.</p>
+<h2 id="First-Try"><a href="#First-Try" class="headerlink" title="First Try"></a>First Try</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">init_lcd()</span><br><span class="line">print_lcd(<span class="number">0</span>, <span class="number">0</span>, <span class="string">&#x27;Hello, world!&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>By using those function, You could See “Hello World” On the first line of the LCD1602</p>
+<h1 id="Combine-With-HeWeather-API"><a href="#Combine-With-HeWeather-API" class="headerlink" title="Combine With HeWeather API"></a>Combine With HeWeather API</h1><p>Also, The With the LCD1602 Module, We can combine it with HeWeather API Easily, For register A HeWeather API account Online, You can just Reference Online Resources, and now, I will mainly phase in the Code we got for API calls.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> pprint</span><br><span class="line">Key = <span class="string">&quot;&amp;key=&quot;</span> + <span class="string">&quot;&quot;</span>          <span class="comment">#input keys</span></span><br><span class="line">CityName = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Getcity</span>(<span class="params">CityName</span>):</span></span><br><span class="line">    url_v2 = <span class="string">&quot;https://geoapi.qweather.com/v2/city/lookup?location=&quot;</span> + CityName + Key</span><br><span class="line">    CityArg =  requests.get(url_v2).json()[<span class="string">&#x27;location&#x27;</span>][<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">return</span> CityArg[<span class="string">&quot;id&quot;</span>]</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">GetInfo</span>(<span class="params">location</span>):</span></span><br><span class="line">    url = <span class="string">&quot;https://devapi.qweather.com/v7/weather/now?&quot;</span> + Key + <span class="string">&quot;&amp;location=&quot;</span> + location</span><br><span class="line">    <span class="keyword">return</span> requests.get(url).json()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">RetWea</span>():</span></span><br><span class="line">    CityId = Getcity(CityName)</span><br><span class="line">    <span class="keyword">return</span> GetInfo(CityId)[<span class="string">&#x27;now&#x27;</span>][<span class="string">&#x27;temp&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;It is: &quot;</span> + WeatherNow[<span class="string">&#x27;now&#x27;</span>][<span class="string">&#x27;temp&#x27;</span>] + <span class="string">&quot; degree&quot;</span>)</span><br></pre></td></tr></table></figure><br>as we can see now, we are using <code>Request</code> Method in order to get the <code>html</code> output of the HeWeather ‘s APi server. in this Srcipt, you must edit The <code>Key</code> and<br><code>CityName</code> arguements so we can get positive infomations.<br>For Furthermore, I Will not Expain more, It is just a simple API Call , I think you are capable of understanding by your self.</p>
+</div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/DDizzzy79/cdn/posts0c5201b6e89c8bbdd96b3f6033afa50a_q.jpg-1170x741" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Retr0mous</div><div class="author-info__description">一个无聊的12岁小朋友</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/DDizzy79"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DDizzzy79" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/patrick_0429@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/qq.com" target="_blank" title="195509868"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">Welcome To Ret2w1cky<div class="twopeople"></div></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/11/28/ardiuinoUltraSound/" title="arduinoUltraSound"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="arduinoUltraSound"/></a><div class="content"><a class="title" href="/2021/11/28/ardiuinoUltraSound/" title="arduinoUltraSound">arduinoUltraSound</a><time datetime="2021-11-28T08:38:27.000Z" title="发表于 2021-11-28 16:38:27">2021-11-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/12/RV110W-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" title="RV110W 漏洞复现"><img src="https://i.loli.net/2021/11/13/EMFKf2AqgYy9CdH.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RV110W 漏洞复现"/></a><div class="content"><a class="title" href="/2021/11/12/RV110W-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" title="RV110W 漏洞复现">RV110W 漏洞复现</a><time datetime="2021-11-12T12:01:00.000Z" title="发表于 2021-11-12 20:01:00">2021-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/12/Retxx-%E8%A7%A3%E6%9E%90/" title="Retxx 解析"><img src="https://cdn.jsdelivr.net/gh/DDizzzy79/cdn/posts/微信图片_20211112161321.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Retxx 解析"/></a><div class="content"><a class="title" href="/2021/11/12/Retxx-%E8%A7%A3%E6%9E%90/" title="Retxx 解析">Retxx 解析</a><time datetime="2021-11-12T09:17:00.000Z" title="发表于 2021-11-12 17:17:00">2021-11-12</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Pwn/" style="font-size: 1.5em; color: #99a9bf">Pwn</a> <a href="/tags/arduino/" style="font-size: 1.1em; color: #999">arduino</a> <a href="/tags/iot/" style="font-size: 1.1em; color: #999">iot</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/11/"><span class="card-archive-list-date">十一月 2021</span><span class="card-archive-list-count">3</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">3</div></div><div class="webinfo-item"><div class="item-name">已运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2021-11-12T04:00:00.000Z"></div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2021-12-05T13:08:28.929Z"></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Retr0mous</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hello Welcome To Retr0 's blog</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'twikoo-5gcp9eau123f5c3b',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'twikoo-5gcp9eau123f5c3b',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_clock_injector_config(){
+    var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+    var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img class="entered loading" id="card-clock-loading" src="/img/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading"/></div></div></div></div></div>';
+    console.log('已挂载butterfly_clock')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_clock_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_clock_injector_config();
+  }
+  </script><script src="https://pv.sohu.com/cityjson?ie=utf-8"></script><script data-pjax src="https://cdn.jsdelivr.net/npm/hexo-butterfly-clock/lib/clock.min.js"></script><script async src="https://at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
